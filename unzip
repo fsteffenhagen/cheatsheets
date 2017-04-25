@@ -7,5 +7,5 @@ unzip -tq archive.zip
 # List files and directories in a file
 unzip -l archive.zip
 
-# Extract single file from an archive
-unzip -d <dest_dir> archive.zip path/to/file
+# Extract a single file from a zip file
+unzip -d /dest/dir archive.zip path/of/file/to/extract
