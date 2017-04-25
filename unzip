@@ -1,0 +1,11 @@
+# Extract archive
+unzip archive.zip
+
+# Test integrity of archive
+unzip -tq archive.zip
+
+# List files and directories in a file
+unzip -l archive.zip
+
+# Extract single file from an archive
+unzip -d <dest_dir> archive.zip path/to/file
