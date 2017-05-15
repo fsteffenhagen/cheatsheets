@@ -1,0 +1,29 @@
+
+## Find and list all znapzend configurations
+znapzend list
+
+# znapzendzetup
+#
+## create znapzend config
+znapzendzetup create --recursive \
+   --mbuffer=/opt/omni/bin/mbuffer \
+   --mbuffersize=1G
+   --tsformat='%Y-%m-%d-%H%M%S' \
+   --pre-snap-command="/bin/sh /usr/local/bin/lock_flush_db.sh" \
+   --post-snap-command="/bin/sh /usr/local/bin/unlock_db.sh" \
+   SRC '7d=>1h,30d=>4h,90d=>1d' tank/home \
+   DST:a '7d=>1h,30d=>4h,90d=>1d,1y=>1w,10y=>1month' backup/home \
+   DST:b '7d=>1h,30d=>4h,90d=>1d,1y=>1w,10y=>1month' root@bserv:backup/home "/root/znapzend.sh dst_b pool on" "/root/znapzend.sh dst_b pool off"
+
+## list znapzend config
+znapzendzetup list tank/scottyv1mail
+*** backup plan: tank/scottyv1mail ***
+enabled         = on
+mbuffer         = /usr/bin/mbuffer
+mbuffer_size    = 1G
+post_znap_cmd   = off
+pre_znap_cmd    = off
+recursive       = on
+src             = tank/scottyv1mail
+src_plan        = 90days=>1day
+tsformat        = %Y-%m-%d-%H%M%S

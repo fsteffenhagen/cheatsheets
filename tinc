@@ -1,0 +1,41 @@
+# manages vpn mesh with tinc
+# http://tinc-vpn.org/documentation/
+
+# show all commands for network management
+tinc -n vpn help
+
+# show network info for a subnet
+tinc -n vpn info 10.86.0.0/20
+
+Subnet: 10.86.0.0/20
+Owner:  toronto
+gw1-van ~ #
+
+# show real time stats
+tinc -n vpn top
+
+Tinc primary           Nodes:    9  Sort: name        Current
+ 
+Node                IN pkts   IN bytes   OUT pkts  OUT bytes
+chandler1                 0          0          0          0
+denmark1                  1         90          0          0
+fusepoint                 2        164          3        357
+ireland                   2        268          2        164
+london                    0          0          0          0
+sandiego1                 0          0          0          0
+sweden1                   0          0          0          0
+sweden2                   0          0          0          0
+toronto                   0          0          0          0
+
+# show live logs 
+tinc -n vpn log 4
+
+# dump vpn nodes
+tinc -n vpn dump nodes
+
+aws1 id 832a56900c8b at 35.163.248.35 port 655 cipher 91 digest 64 maclength 4 compression 0 options c status 0c9a nexthop aws1 via aws1 distance 1 pmtu 1459 (min 1459 max 1459)
+aws2 id b71142a80d2e at 52.211.187.144 port 655 cipher 91 digest 64 maclength 4 compression 0 options c status 0c9a nexthop aws2 via aws2 distance 1 pmtu 1459 (min 1459 max 1459)
+
+# dump the vpn network as dot graph 
+tinc -n vpn dump graph
+
