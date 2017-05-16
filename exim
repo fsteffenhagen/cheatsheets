@@ -1,0 +1,40 @@
+# Useful commands for the exim mailer
+
+# print queue
+exim -bp
+
+# print queue count
+exim -bpc
+
+#Try to send the message with id id 
+exim -M id
+
+# retry queue entries
+exim -Rf "mydomain.com" 
+#Tell exim to process the entire queue again
+exim -qf
+#same as qf, but it will flush the frozen messages
+exim -qff      
+
+#view the message log for message id
+exim -Mvl id
+#view message id's headers
+exim -Mvh id
+#view message id's body
+exim -Mvb id
+
+# exim utilities
+exiwhat             list what Exim processes are doing
+exiqgrep            grep the queue
+exiqsumm            summarize the queue
+exigrep             search the main log
+exipick             select messages on various criteria
+exicyclog           cycle (rotate) log files
+eximstats           extract statistics from the log
+exim_checkaccess    check address acceptance from given IP
+exim_dbmbuild       build a DBM file
+exinext             extract retry information
+exim_dumpdb         dump a hints database
+exim_tidydb         clean up a hints database
+exim_fixdb          patch a hints database
+exim_lock           lock a mailbox file
