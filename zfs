@@ -1,0 +1,141 @@
+# ZFS filesystem management
+http://www.datadisk.co.uk/html_docs/sun/sun_zfs_cs.htm
+
+# Directories and Files
+## error messages
+* /var/adm/messages
+* console
+
+# States
+* DEGRADED    One or more top-level devices is in the degraded state because they have become offline. Sufficient replicas exist to keep functioning
+* FAULTED     One or more top-level devices is in the faulted state because they have become offline. Insufficient replicas exist to keep functioning
+* OFFLINE     The device was explicity taken offline by the "zpool offline" command
+* ONLINE      The device is online and functioning
+* REMOVED     The device was physically removed while the system was running
+* UNAVAIL     The device could not be opened 
+
+# Scrubbing and Resilvering
+## Scrubbing
+Examines all data to discover hardware faults or disk failures, only one scrub may be running at one time, you can manually scrub. 
+
+## Resilvering
+is the same concept as rebuilding or resyncing data on to new disks into an array, the smart thing resilvering does is it does not
+rebuild the whole disk only the data that is required (the data blocks not the free blocks) thus reducing the time to resync a disk.
+Resilvering is automatic when you replace disks, etc. If a scrub is already running it is suspended until the resilvering has finished
+and then the scrubbing will continue.
+
+# ZFS Devices
+* Disk: A physical disk drive
+* File: The absolute path of pre-allocated files/images
+* Mirror: Standard raid-1 mirror
+
+## Raidz1/2/3  
+non-standard distributed parity-based software raid levels, one common problem called "write-hole" is elimiated because raidz in 
+zfs the data and stripe are written simultanously, basically is a power failure occurs in the middle of a write then you have the
+data plus the parity or you dont, also ZFS supports self-healing if it cannot read a bad block it will reconstruct it using the
+parity, and repair or indicate that this block should not be used.
+
+You should keep the raidz array at a low power of two plus partity
+* raidz1 - 3, 5, 9 disks
+* raidz2 - 4, 6, 8, 10, 18 disks
+* raidz3 - 5, 7, 11, 19 disks
+
+the more parity bits the longer it takes to resilver an array, standard mirroring does not have the problem of creating the parity so is quicker in resilvering
+
+raidz is more like raid3 than raid5 but does use parity to protect from disk failures
+raidz/raidz1 - minimum of 3 devices (one parity disk), you can suffer a one disk loss
+raidz2       - minimum of 4 devices (two parity disks), you can suffer a two disk loss
+raidz3       - minimum of 5 devices (three parity disks) , you can suffer a three disk loss
+
+## spare
+hard drives marked as "hot spare" for ZFS raid, by default hot spares are not used in a disk failure you must turn on the "autoreplace" feature.
+
+## cache   
+Linux caching mechanism use what is known as least recently used (LRU) algorithms, basically first in first out (FIFO) blocks are moved in and out of cache. Where ZFS cache is different it caches both least recently used block (LRU) requests and least frequent used (LFU) block requests, the cache device uses level 2 adaptive read cache (L2ARC).
+
+## log     
+
+There are two terminologies here:
+* ZFS intent log (ZIL) - a logging mechanism where all the data to be written is stored, then later flushed as a 
+  transactional write, this is similar to a journal filesystem (ext3 or ext4).
+* Seperate intent log (SLOG) - a seperate logging devive that caches the synchronous parts of the ZIL before flushing
+  them to the slower disk, it does not cache asynchronous data (asynchronous data is flushed directly to the disk).
+  If the SLOG exists the ZIL will be moved to it rather than residing on platter disk, everything in the SLOG will always be in system memory. Basically the SLOG is the device and the ZIL is data on the device.
+
+
+# Storage Pools
+
+## displaying
+zpool list
+zpool list -o name,size,altroot
+## Retrieve all properties for a pool
+zpool get all POOLNAME
+
+## status, statistics
+zpool status
+# Display health status of a pool
+zpool status [POOLNAME]
+# Show only errored pools with more verbosity
+zpool status -xv
+# Display io stats
+zpool iostat -v 5 5
+
+
+## Creating 
+# performing a dry run but don't actual perform the creation (notice the -n)
+zpool create -n data01 c1t0d0s0 
+
+# you can persume that I created two files called /zfs1/disk01 and /zfs1/disk02 using mkfile
+zpool create data01 /zfs1/disk01 /zfs1/disk02
+
+# using a standard disk slice
+zpool create data01 c1t0d0s0
+
+# using a different mountpoint than the default /<pool name>
+zpool create -m /zfspool data01 c1t0d0s0
+
+# mirror and hot spare disks examples, hot spares are not used by default turn on the "autoreplace" feature for each pool
+zpool create data01 mirror c1t0d0 c2t0d0 mirror c1t0d1 c2t0d1
+zpool create data01 mirror c1t0d0 c2t0d0 spare c3t0d0
+
+# setting up a log device and mirroring it
+zpool create data01 mirror c1t0d0 c2t0d0 log mirror c3t0d0 c4t0d0
+
+# setting up a cache device
+zpool create data 01 mirror c1t0d0 c2t0d0 cache c3t0d0 c3t1d0
+
+# you can also create raid pools (raidz/raidz1 - mirror, raidz2 - single parity, raidz3 double partity)
+zpool create data01 raidz2 c1t0d0 c1t1d0 c1t2d0 c1t3d0 c1t4d0
+
+## Destroying
+zpool destroy /zfs1/data01
+
+## Add/Remove
+zpool add data01 c2t0d0
+zpool remove data01 c2t0d0
+
+# Filesystem
+
+## Displaying
+zfs list -t filesystem
+zfs list -t snapshot
+zfs list -t volume
+# recursive display
+zfs list -t all -r <zpool>
+# complex listing
+zfs list -o name,mounted,sharenfs,mountpoint
+
+## Creating
+### persuming i have a pool called data01 create a /data01/apache filesystem 
+zfs create data01/apache
+### using a different mount point
+zfs create -o mountpoint=/oracle data01/oracle
+
+## create a volume - the device can be accessed via /dev/zvol/[rdsk|dsk]/data03/swap
+zfs create -V 50mb data01/swap
+swap -a /dev/zvol/dsk/data01/swap
+
+## Destroy
+
+# List snapshots
+zfs list -t snapshot /DATASET

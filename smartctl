@@ -1,0 +1,5 @@
+# SMART monitoring tool
+
+# fetch device information
+smartctl -i /dev/sd[x]
+
