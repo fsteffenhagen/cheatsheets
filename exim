@@ -23,6 +23,12 @@ exim -Mvh id
 #view message id's body
 exim -Mvb id
 
+# Testing
+# test config settings
+exim -bV
+# test exim routing
+exim -bt joe.blow@example.org
+
 # exim utilities
 exiwhat             list what Exim processes are doing
 exiqgrep            grep the queue

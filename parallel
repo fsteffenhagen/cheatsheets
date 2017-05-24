@@ -1,0 +1,59 @@
+# GNU parallel is a shell tool for executing jobs in parallel using one or more computers
+# https://www.gnu.org/software/parallel/
+
+# Useful links
+- https://www.gnu.org/software/parallel/parallel_tutorial.html
+- http://datascienceatthecommandline.com/
+- https://github.com/mlangill/microbiome_helper/wiki/Quick-Introduction-to-GNU-Parallel
+ 
+
+- Search for files and execute command on them
+find . -name "*.foo" | parallel grep bar
+
+- Use null character to delimit file names 
+find . -name "*.foo" -print0 | parallel -0 grep bar
+
+- Use {} as replacement for the full argument list. -X inserts as many arguments as the command line length permits
+find . -name "*.foo" | parallel -X mv {} /tmp/trash
+
+- run list of commands (no commands means arguments are commands)
+parallel ::: ls 'echo foo' pwd
+>  [list of files in current dir]
+> foo
+> [/path/to/current/working/dir]
+
+- read input sources from command line and exceute command
+parallel -k echo ::: A B C > abc-file
+
+- read input source from file and execute command
+parallel -a input.txt echo
+parallel echo :::: input.txt
+cat abc.txt | parallel echo :::: - def.txt 
+
+- read input from STDIN and execute command
+cat input.txt | parallel echo
+
+- multiple input sources
+parallel echo ::: A B C ::: D E F       // generates all combinations of input sources 
+parallel echo -a abc.txt -a def.txt     // generates all combinations of input source files
+>  A D
+>  A E
+>  A F
+>  B D
+>  B E
+>  B F
+>  C D
+>  C E
+>  C F
+
+parallel --link echo ::: A B C ::: D E F
+>  A D
+>  B E
+>  C F
+
+parallel --link echo ::: A B C D E ::: F G
+>  A F
+>  B G
+>  C F
+>  D G
+>  E F
