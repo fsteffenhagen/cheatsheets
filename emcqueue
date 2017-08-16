@@ -1,0 +1,13 @@
+# Size of current queue
+emcqueue -C
+17
+
+# List queue entries
+emcqueue -l
+
+# Show message details
+emcqueue -m <msgid>
+
+# Delete messages from the queue
+emcqueue -M -D -f <sender> -t <recip>
+
