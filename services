@@ -1,0 +1,24 @@
+# List of important network ports
+
+# Redis
+6379/tcp    -- redis (client)
+26379/tcp   -- redis sentinel
+
+## Consul
+8301/udp    -- Serf LAN, This is used to handle gossip in the LAN. Required by all agents. TCP and UDP.
+8301/tcp    -- Serf LAN, This is used to handle gossip in the LAN. Required by all agents. TCP and UDP.
+8400/tcp    -- CLI RPC, This is used by all agents to handle RPC from the CLI.
+8500/tcp    -- HTTP API/UI. This is used by clients to talk to the HTTP API.
+8600/tcp    -- DNS Interface. Used to resolve DNS queries 
+8600/udp    -- DNS Interface. Used to resolve DNS queries
+
+## NSQ
+4171    -- nsq admin interface
+4150    -- nsqd TCP client
+4151    -- nsqd HTTP client
+4160    -- nsqlookupd TCP client
+4161    -- nsqlookupd HTTP client
+
+## Prometheus
+9090    -- Prometheus UI
+9100    -- Prometheus node exporter
