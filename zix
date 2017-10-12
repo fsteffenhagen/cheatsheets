@@ -1,0 +1,16 @@
+# ZIX - Troubleshooting
+
+## Postfix commands
+# show queue
+showqueue
+
+# zix management interface
+zix-cli
+
+# Logs:
+/var/log/zixvpm/
+
+see also
+- https://fusemail.atlassian.net/wiki/spaces/SO/pages/38338573/ZixGateway 
+- https://fusemail.atlassian.net/wiki/spaces/SO/pages/17006992/ZIX-+Troubleshooting
+

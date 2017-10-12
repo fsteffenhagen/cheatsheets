@@ -21,4 +21,5 @@
 
 ## Prometheus
 9090    -- Prometheus UI
+9093    -- Prometheus Alert Manager
 9100    -- Prometheus node exporter
