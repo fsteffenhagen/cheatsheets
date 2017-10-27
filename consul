@@ -1,0 +1,7 @@
+# Consul
+
+# list all members 
+consul members
+
+# list all registered services
+consul catalog services
