@@ -4,6 +4,12 @@
 # show queue
 showqueue
 
+# show content of a message
+postcat -qv <msgid>
+
+# flush the queue
+/zix/system/postfix/bin/postqueue -f -c /zix/system/postfix/conf_base
+
 # zix management interface
 zix-cli
 
