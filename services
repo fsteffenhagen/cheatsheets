@@ -23,3 +23,18 @@
 9090    -- Prometheus UI
 9093    -- Prometheus Alert Manager
 9100    -- Prometheus node exporter
+
+## Bamboo
+8085    -- Bamboo UI
+
+## MooseFS / LizardFS
+https://docs.lizardfs.com/adminguide
+### Master Server
+9419    -- metalogger connections 
+9420    -- chunkserver connections 
+9421    -- client (mount) connections
+9424    -- tape server connections 
+9425    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi)
+
+## Artifact server
+8098    -- caddy cache servers on apt hosts for artifacts.electric.net
