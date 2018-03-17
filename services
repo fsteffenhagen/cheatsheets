@@ -38,3 +38,7 @@ https://docs.lizardfs.com/adminguide
 
 ## Artifact server
 8098    -- caddy cache servers on apt hosts for artifacts.electric.net
+
+## Docker
+10080   -- docker registry (docker-registry.electric.net)
+10081   -- docker registry UI (docker-registry.electric.net)
