@@ -1,0 +1,4 @@
+# Initiate new root token
+vault operator generate-root -init -pgp-key=/usr/share/doc/vault/pgp_pubkeys/<first>.<last>
+# 
+vault operator generate-root

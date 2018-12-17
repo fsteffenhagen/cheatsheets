@@ -21,6 +21,7 @@
 
 ## Prometheus
 9090    -- Prometheus UI
+9091    -- Prometheus Push Gateway (e.g. statsd-relay3a.electric.net:9091)
 9093    -- Prometheus Alert Manager
 9100    -- Prometheus node exporter
 
@@ -37,8 +38,17 @@ https://docs.lizardfs.com/adminguide
 9425    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi)
 
 ## Artifact server
-8098    -- caddy cache servers on apt hosts for artifacts.electric.net
+8098    -- caddy cache servers on apt hosts for artifacts.electric.net (mirrored on bamboo2203a.electric.net:8098)
 
 ## Docker
 10080   -- docker registry (docker-registry.electric.net)
 10081   -- docker registry UI (docker-registry.electric.net)
+
+## Nomad
+4646/tcp    -- The port used to run the HTTP server
+4647/tcp    -- The port used for internal RPC communication between agents and servers
+4648/tcp    -- The port used for the gossip protocol for cluster membership
+4648/udp    -- The port used for the gossip protocol for cluster membership
+
+# OpenNebula
+9869/tcp    --  OpenNebula Web UI
