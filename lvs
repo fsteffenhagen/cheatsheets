@@ -1,0 +1,12 @@
+### LVS Cheat Sheet
+
+## List clusters and their members
+
+~ # ipvsadm -L
+
+## Take a server out of the cluster
+
+### by setting their cluster weight to 0
+~ # ipvsadm -e -t mysql.electric.net:mysql -r akaro3c.electric.net:mysql -w 0
+
+____________________
