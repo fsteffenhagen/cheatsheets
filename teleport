@@ -1,0 +1,17 @@
+##############################################
+# Teleport SSH Authentication Proxy/Wrapper
+##############################################
+
+Master Cluster: https://teleportproxymaster2a.electric.net:3080/
+
+Click on Login with Vipre and use ldap credentials to login.
+After login, one can select the Cluster.
+
+To login to individual clusters, use the cluster url's.
+  - https://teleportproxy2a.electric.net:3080
+  - https://teleportproxy3a.electric.net:3080
+
+References:
+  - Teleport Overview: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/571867215/Teleport+Overview
+  - Teleport User Guide: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/572031092/Teleport+User+Guide
+  - Teleport Admin Guide: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/572031096/Teleport+Admin+Guide

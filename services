@@ -13,17 +13,17 @@
 8600/udp    -- DNS Interface. Used to resolve DNS queries
 
 ## NSQ
-4171    -- nsq admin interface
-4150    -- nsqd TCP client
-4151    -- nsqd HTTP client
-4160    -- nsqlookupd TCP client
-4161    -- nsqlookupd HTTP client
+4171/tcp    -- nsq admin interface
+4150/tcp    -- nsqd TCP client
+4151/tcp    -- nsqd HTTP client
+4160/tcp    -- nsqlookupd TCP client
+4161/tcp    -- nsqlookupd HTTP client
 
 ## Prometheus
-9090    -- Prometheus UI
-9091    -- Prometheus Push Gateway (e.g. statsd-relay3a.electric.net:9091)
-9093    -- Prometheus Alert Manager
-9100    -- Prometheus node exporter
+9090/tcp    -- Prometheus UI
+9091/tcp    -- Prometheus Push Gateway (e.g. statsd-relay3a.electric.net:9091)
+9093/tcp    -- Prometheus Alert Manager
+9100/tcp    -- Prometheus node exporter
 
 ## Bamboo
 8085    -- Bamboo UI
@@ -31,18 +31,18 @@
 ## MooseFS / LizardFS
 https://docs.lizardfs.com/adminguide
 ### Master Server
-9419    -- metalogger connections 
-9420    -- chunkserver connections 
-9421    -- client (mount) connections
-9424    -- tape server connections 
-9425    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi)
+9419/tcp    -- metalogger connections 
+9420/tcp    -- chunkserver connections 
+9421/tcp    -- client (mount) connections
+9424/tcp    -- tape server connections 
+9425/tcp    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi)
 
 ## Artifact server
-8098    -- caddy cache servers on apt hosts for artifacts.electric.net (mirrored on bamboo2203a.electric.net:8098)
+8098/tcp    -- caddy cache servers on apt hosts for artifacts.electric.net (mirrored on bamboo2203a.electric.net:8098)
 
 ## Docker
-10080   -- docker registry (docker-registry.electric.net)
-10081   -- docker registry UI (docker-registry.electric.net)
+10080/tcp   -- docker registry (docker-registry.electric.net)
+10081/tcp   -- docker registry UI (docker-registry.electric.net)
 
 ## Nomad
 4646/tcp    -- The port used to run the HTTP server
@@ -52,3 +52,10 @@ https://docs.lizardfs.com/adminguide
 
 # OpenNebula
 9869/tcp    --  OpenNebula Web UI
+
+# Teleport
+3022/tcp    -- [Teleport Node] SSH port. This is Teleport's equivalent of port #22 for SSH.  
+3023/tcp    -- [Teleport Proxy] SSH port clients connect to. A proxy will forward this connection to port #3022 on the destination node. 
+3024/tcp    -- [Teleport Proxy] SSH port used to create "reverse SSH tunnels" from behind-firewall environments into a trusted proxy server.
+3025/tcp    -- [Teleport Auth] SSH port used by the Auth Service to serve its API to other nodes in a cluster. 
+3080/tcp    -- [Teleport Proxy] HTTPS connection to authenticate tsh users and web users into the cluster. The same connection is used to serve a Web UI.

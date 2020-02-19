@@ -44,3 +44,5 @@ exim_dumpdb         dump a hints database
 exim_tidydb         clean up a hints database
 exim_fixdb          patch a hints database
 exim_lock           lock a mailbox file
+
+# http://bradthemad.org/tech/notes/exim_cheatsheet.php

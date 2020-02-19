@@ -1,0 +1,24 @@
+###################
+# rq - record query
+###################
+# Tool for performing queries on streams of records in various formats.
+
+###
+
+$ rq <<< 'null true {"a": 2.5}'
+null
+true
+{"a":2.5}
+
+###
+
+$ rq --format=compact \
+  'select "$.tracks.items[*]" |
+   flatMap artists |
+   countBy name |
+   flatMap (o)=>{_.toPairs(o)} |
+   orderBy 1 desc |
+   take 3' < data.json
+["Rihanna",49]
+["Drake",7]
+["Calvin Harris",2]
