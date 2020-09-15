@@ -35,7 +35,7 @@ https://docs.lizardfs.com/adminguide
 9420/tcp    -- chunkserver connections 
 9421/tcp    -- client (mount) connections
 9424/tcp    -- tape server connections 
-9425/tcp    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi)
+9425/tcp    -- MooseFS CGI server (e.g. http://lfsmaster2a:9425/mfs.cgi , http://mfs90a/mfs.cgi?masterhost=mfs90a)
 
 ## Artifact server
 8098/tcp    -- caddy cache servers on apt hosts for artifacts.electric.net (mirrored on bamboo2203a.electric.net:8098)
