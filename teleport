@@ -1,7 +1,44 @@
 ##############################################
-# Teleport SSH Authentication Proxy/Wrapper
+###         Teleport Cheat Sheet           ###
 ##############################################
 
+# Log in to a cluster and retrieve the session certificate
+
+# proxy login
+~ $tsh --proxy=teleportproxy2a.electric.net login
+
+# start ssh session
+~ $ tsh ssh root@node
+
+# start ssh session with local keys forwarded
+~ $ ssh -A -J teleportproxy:
+ssh -A -J teleport-proxy:3023 -p 3022 node
+
+# forward port to localhost
+ssh -L 3306:localhost:3306 -J teleportproxy3a.electric.net:3023 -p 3022 root@tracksmart6a
+
+# show session info
+on the remote host:
+ ~ $ teleport status
+```
+  User ID     : john.doe@example.com, logged in as root from 10.99.1.176 58858 3022
+  Cluster Name: dev
+  Host UUID   : a26d2c5e-dbb2-453b-ad93-761bc05c927a
+  Session ID  : 239f2bf3-d64f-11e9-9565-c86000690b49
+  Session URL : https://teleportproxy9a.electric.net:3080/web/cluster/dev/node/a26d2c5e-dbb2-453b-ad93-761bc05c927a/root/239f2bf3-d64f-11e9-9565-c86000690b49
+```
+
+
+# Session sharing
+- via webbrowser, e.g.
+https://teleportproxy9a.electric.net:3080/web/cluster/dev/node/a26d2c5e-dbb2-453b-ad93-761bc05c927a/root/239f2bf3-d64f-11e9-9565-c86000690b49
+
+- via tsh, e.g.
+tsh join <session_id>
+tsh join 239f2bf3-d64f-11e9-9565-c86000690b49
+
+
+# Setup
 Master Cluster: https://teleportproxymaster2a.electric.net:3080/
 
 Click on Login with Vipre and use ldap credentials to login.
@@ -15,3 +52,4 @@ References:
   - Teleport Overview: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/571867215/Teleport+Overview
   - Teleport User Guide: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/572031092/Teleport+User+Guide
   - Teleport Admin Guide: https://fusemail.atlassian.net/wiki/spaces/~ravjit.bagga/pages/572031096/Teleport+Admin+Guide
+
