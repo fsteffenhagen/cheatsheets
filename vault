@@ -2,3 +2,6 @@
 vault operator generate-root -init -pgp-key=/usr/share/doc/vault/pgp_pubkeys/<first>.<last>
 # 
 vault operator generate-root
+
+cssh -l root -p3022 -o '-J teleportproxymaster2a:3023' lvs1-vani lvs1-tori lvs1-ire lvs1-lon lvs1-stk1 lvs1-stk2 lvs1-cph1 #lvs1-san1
+
